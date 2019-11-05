@@ -1,7 +1,15 @@
 //(function () {
   // code here
+
+  function include(url) {
+    var script = document.createElement('script');
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+  include("/DB.js");
+
+
   class guestBook {
-    
 
     constructor (id){
       //проверяем целостность верстки для гостевой и вешаем события
@@ -108,6 +116,63 @@
       o.append(tplArticle.content.cloneNode(true));
       return o.childNodes[o.childNodes.length - 2];
       
+    }
+
+    /*получение комментов со страницы в нужном формате
+    id - уникальный id записи (будем использовать свой счетчик от еденицы с шагом +1.
+    author {string} - имя автора записи
+    message {string} - текст записи 
+    pubDate {Date} - дата создания записи
+    editDate {Date} - дата редактирования записи 
+    comments {array} - массив комментариев к записи
+    */
+    getCommentsFromWEBPage(){
+      let records = [];
+      let i = 0;
+      let comment;
+      if (comment = this.gbObject.querySelector('article[class=card]')){
+        records = tree(comment);
+        function tree (comment){
+          let records = [];
+          //смотрим на уровне comment все другие комменты и составляем первый уровень
+          for (const key in comment.parentElement.childNodes) { 
+            let record = {};
+            if (comment.parentElement.childNodes.hasOwnProperty(key)) {
+              const element = comment.parentElement.childNodes[key];
+              if (element.className == 'card') {
+                //нашли коммент, нужно добавить по нему дату
+                i++;
+                record.id = i;
+                record.author = element.querySelector('.card-body>h6').innerHTML;
+                record.message = element.querySelector('.card-body>p').innerHTML;
+                record.pubDate = element.querySelector('.card-footer>small').innerHTML;
+                record.editDate = record['pubDate'];
+                record.comments = [];
+                //у найденного коммента проверяем есть ли подкомменты
+                let subComment = element.querySelector('article[class=card]');
+                if (subComment) {
+                  record.comments.push = tree(subComment)
+                }
+                records.push(record);
+              }
+            }
+          }
+          return records;
+        }
+      }  
+      //console.dir(records);
+    }
+
+    /*синхронизация комментов с базой данных, список из БД всегда верный, при условии что там хоть что-то есть*/
+    syncComments(){
+      //получаем из бд листинг всех комментов
+      console.log(DB.getAllRecords());
+      if (typeof(DB) === 'object'){
+        DB.addRecords()
+        console.log(123);
+        //смотрим по идентификатору коммента его присутствие в листинге в том же виде что и в бд
+          // если не в том же виде, то меняем на тот что в бд
+      }
     }
   }
 
