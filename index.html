@@ -4,12 +4,12 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Guest Book</title>
+    <title>Guest Book 1</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-<div class="container pt-4">
+<div id="guest-book1" class="container pt-4">
     <h1> Guest book</h1>
     <form action="#" id="search">
         <div class="input-group">
@@ -28,41 +28,82 @@
     <section id="comments-list">
         <article class="card">
             <div class="card-body">
-                <h3  class="cart-title">UserName</h3>
+                <h6>UserName1</h6>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi consequatur error maiores quisquam vitae. Aliquid blanditiis, dolorum, eligendi magni nesciunt nulla provident quisquam rem, reprehenderit sapiente similique tempore veniam voluptatum.</p>
             </div>
             <div class="card-footer">
                 <small>Pub date: 17:00 01.01.2019</small>
-                <button class="btn btn-secondary btn-sm">comments this</button>
-                <button class="btn btn-primary btn-sm">edit this</button>
-                <button class="btn btn-danger btn-sm">delete this</button>
+                <button class="btn btn-secondary btn-sm" data-action="comments-this">comments this</button>
+                <button class="btn btn-primary btn-sm 1" data-action="edit-this">edit this</button>
+                <button class="btn btn-danger btn-sm" data-action="delete-this">delete this</button>
             </div>
             <div class="sub-comments-list p-2">
                 <article class="card">
                     <div class="card-body">
-                        <h6>UserName</h6>
+                        <h6>UserName222</h6>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi consequatur error maiores quisquam vitae. Aliquid blanditiis, dolorum, eligendi magni nesciunt nulla provident quisquam rem, reprehenderit sapiente similique tempore veniam voluptatum.</p>
                     </div>
                     <div class="card-footer">
                         <small>Pub date: 17:00 01.01.2019</small>
+                        <button class="btn btn-secondary btn-sm" data-action="comments-this">comments this</button>
+                        <button class="btn btn-primary btn-sm 2" data-action="edit-this">edit this</button>
+                        <button class="btn btn-danger btn-sm" data-action="delete-this">delete this</button>
+                    </div>
+
+                    <div class="sub-comments-list p-2">
+                        <article class="card">
+                            <div class="card-body">
+                                <h6>UserName33333</h6>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi consequatur error maiores quisquam vitae. Aliquid blanditiis, dolorum, eligendi magni nesciunt nulla provident quisquam rem, reprehenderit sapiente similique tempore veniam voluptatum.</p>
+                            </div>
+                            <div class="card-footer">
+                                <small>Pub date: 17:00 01.01.2019</small>
+                                <button class="btn btn-secondary btn-sm" data-action="comments-this">comments this</button>
+                                <button class="btn btn-primary btn-sm 3" data-action="edit-this">edit this</button>
+                                <button class="btn btn-danger btn-sm" data-action="delete-this">delete this</button>
+                            </div>
+                            <div class="sub-comments-list p-2">
+                                <!--сюда шаблон статьи-->  
+                            </div>
+                        </article>
                     </div>
                 </article>
             </div>
         </article>
+
+        
+
+        <template id="tplArticle">
+            <article class="card" >
+                <div class="card-body">
+                    <h6>...</h3>
+                    <p>...</p>
+                </div>
+                <div class="card-footer">
+                    <small class="pub-date">Pub date: ...</small>
+                    <button class="btn btn-secondary btn-sm" data-action="comments-this">comments this</button>
+                    <button class="btn btn-primary btn-sm" data-action="edit-this">edit this</button>
+                    <button class="btn btn-danger btn-sm" data-action="delete-this">delete this</button>
+                </div>
+                <div class="sub-comments-list p-2">
+                    <!--сюда шаблон статьи-->  
+                </div>
+            </article>
+        </template>
     </section>
     <div class="card mt-2">
-        <form action="#" id="add-comments">
+        <form action="#" data-form="add-comments">
             <div class="card-body">
                 <h4 class="cart-title">Add new comments</h4>
             <div class="form-group">
                 <label for="name">name</label>
-                <input type="text" class="form-control" id="name">
+                <input type="text" class="form-control" data-name="name">
             </div>
             <div class="form-group">
                 <label for="message">message</label>
-                <textarea name="message" class="form-control" id="message" cols="30" rows="2"></textarea>
+                <textarea name="message" class="form-control" data-message="message" cols="30" rows="2"></textarea>
             </div>
-                <button class="btn btn-primary">add comment</button>
+                <button class="btn btn-primary" data-submit="submit" data-action="save">add comment</button>
             </div>
         </form>
     </div>
